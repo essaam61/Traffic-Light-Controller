@@ -1,2 +1,2 @@
 # Traffic-Light-Controller
-Designed of a traffic light control system using CCS IDE with C programming language on Arm Cortex M4 Tiva C board as microcontroller.
+Designed of a traffic light control system using CCS IDE with C programming language on Arm Cortex M4 Tiva C board as microcontroller. The system contains simply of two traffic lights. One allows cars to move from north to south, the other one allows cars to move from east to west. Beside each traffic, there is a pedestrian traffic light. The pedestrian has to press on a button to have his light green to cross the street safely.
