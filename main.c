@@ -16,7 +16,6 @@
 #define YellowEw (1U << 4)
 #define GreenEw (1U << 3)
 
-
 #define RedNs (1U << 2)   //Port B
 #define YellowNs (1U << 1)
 #define GreenNs (1U << 0)
@@ -28,7 +27,6 @@
 #define GreenPdNs (1U << 3)
 #define GreenPdEw (1U << 6)
 
-
 #define sw2 (1U)    //Port F
 #define sw1 (1U<<4)
 
@@ -36,6 +34,7 @@
 #define tg  (5000)
 #define ty  (2000)
 #define tr  (1000)
+#define tcross (2000)
 
 #define tgNs 0
 #define tgEw 1
@@ -43,7 +42,6 @@
 #define tyEw 3
 #define trNs 4
 #define trEw 5
-#define tcross 2000
 
 
 int NsGreenFlag=0;
@@ -52,7 +50,7 @@ int NsRedFlag = 0;
 int EwGreenFlag=0;
 int EwYellowFlag=0;
 int EwRedFlag = 0;
-int PdTimeFlag=0;
+//int PdTimeFlag=0;
 
 int GNs = 0;
 int GEw = 0;
@@ -93,7 +91,7 @@ void NSCars_TrafficLight(void);
 
 
 
-/* Interrupt handler for car timer */
+/* Interrupt handler for traffic timer */
 void Timer0_Handler(void)
 {
     //uint32_t status = 0;
@@ -201,45 +199,7 @@ void Timer0_Handler(void)
     }//end of else
 
 
-
 }
-
-
-/* Interrupt handler for Ped timer */
-/*
-void Timer1_Handler(void)
-{
-    //uint32_t status = 0;
-    //status = TimerIntStatus(TIMER1_BASE,true);
-    TimerIntClear(TIMER0_BASE, TIMER_TIMB_TIMEOUT);
-
-    GPIOPinWrite(GPIO_PORTF_BASE, 2, 2);
-
-    counter1++;
-
-    if(Ped==1 && counter1==tcross) {
-        PdTimeFlag=1;
-        Ped = 0;
-        counter1=0;
-        TimerDisable(TIMER0_BASE, TIMER_B);
-    }
-
-}
-
-void SysTick_Handler(void)
-{
-
-    counter1++;
-
-    if(Ped==1 && counter1==2) {
-        PdTimeFlag=1;
-        Ped = 0;
-        counter1=0;
-        SysTickDisable();
-    }
-
-}
-*/
 
 
 /* Car Timer Setup */
@@ -263,20 +223,6 @@ void CarTimerBegin(int time)
     TimerEnable(TIMER0_BASE, TIMER_A);
 
 }
-
-
-/* Pedestrian Timer Setup */
-/*
-void PedTimerBegin(int time)
-{
-    if(time==tcross)
-        Ped=1;
-
-    SysTickEnable();
-    //TimerEnable(TIMER0_BASE, TIMER_B);
-
-}
-*/
 
 
 void EWCars_TrafficLight(){
@@ -356,6 +302,7 @@ void PedTraffic(){
 
         PedNs=1;
 
+
         /*
         PedTimerBegin(tcross);
         while(PdTimeFlag == 0);
@@ -381,6 +328,15 @@ void PedTraffic(){
 
         PedEw=1;
 
+
+        /*
+        PedTimerBegin(tcross);
+        while(PdTimeFlag == 0);
+        PdTimeFlag = 0;
+
+        GPIOPinWrite(GPIO_PORTA_BASE, GreenPdEw, 0);
+        GPIOPinWrite(GPIO_PORTA_BASE, RedPdEw, RedPdEw);
+        */
     }
 
 
@@ -457,6 +413,10 @@ void Timer0_Init() {
     TimerIntRegister(TIMER0_BASE, TIMER_A, Timer0_Handler);
 }
 
+
+
+
+
 /*
 void Timer1_Init() {
     SysCtlClockSet(SYSCTL_SYSDIV_5 | SYSCTL_USE_PLL | SYSCTL_XTAL_16MHZ | SYSCTL_OSC_MAIN);
@@ -519,4 +479,18 @@ void SysTick_Handler(void)
 }
 */
 
+
+
+/* Pedestrian Timer Setup */
+/*
+void PedTimerBegin(int time)
+{
+    if(time==tcross)
+        Ped=1;
+
+    SysTickEnable();
+    //TimerEnable(TIMER0_BASE, TIMER_B);
+
+}
+*/
 
