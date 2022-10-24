@@ -1,6 +1,12 @@
 # Traffic-Light-Controller
 Designed of a traffic light control system using CCS IDE with C programming language on Arm Cortex M4 Tiva C board as microcontroller. The system contains simply of two traffic lights. One allows cars to move from north to south, the other one allows cars to move from east to west. Beside each traffic, there is a pedestrian traffic light. The pedestrian has to press on a button to have his light green to cross the street safely.
 
+
+![trafficlight](https://user-images.githubusercontent.com/109050863/197565411-cd026709-e610-4db8-a6d5-d61d870e3b00.jpeg)
+
+
+
+
 The East to West traffic is supposed to start firstly once the system is working. All RED lights of other traffics will be on at start except the GREEN light of East to West traffic will blink for 5 seconds, then 
 turns to the YELLOW for 3 seconds to warn the cars on the EW that the RED light will be on. Red light will be on for 1 second and the green light of the North to South traffic will blink immediately. So, the cars on NS can move, and that will be for 5 seconds as well.
 Then, the yellow will turn on for 3 seconds to warn cars on NS way to stop and RED light will be on for a second and the sequence is repeated.
